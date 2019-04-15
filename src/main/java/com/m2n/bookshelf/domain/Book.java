@@ -1,6 +1,8 @@
 package com.m2n.bookshelf.domain;
 
+import lombok.Data;
 
+@Data
 public class Book {
 	
 	private final int id;
@@ -9,33 +11,4 @@ public class Book {
 	private final String genre;
 	private final Book author;
 
-	public Book(int id, String name, int yearOfCreated, String genre, Book author) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.yearOfCreated = yearOfCreated;
-		this.genre = genre;
-		this.author = author;
-	}
-	
-	
-	public int getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public int getYearOfCreated() {
-		return yearOfCreated;
-	}
-
-	public String getGenre() {
-		return genre;
-	}
-
-	public Book getAuthors() {
-		return author;
-	}
 }
