@@ -10,60 +10,98 @@
     <changeSet author="Misha" id="1">
         <createTable tableName="genres">
             <column name="id"   type="long" startWith="0" autoIncrement="true"  >
-            	<constraints primaryKey="true" nullable="false" unique="true"/>
+                <constraints primaryKey="true" nullable="false" unique="true"/>
             </column>
             <column name="name" type="VARCHAR(255)" >
-            	<constraints nullable="false"/>
+                <constraints nullable="false"/>
             </column>
         </createTable>
 
         <createTable tableName="authors">
             <column name="id"        type="long" startWith="0" autoIncrement="true" >
-            	<constraints primaryKey="true" nullable="false" unique="true"/>
+                <constraints primaryKey="true" nullable="false" unique="true"/>
             </column>
             <column name="firstname" type="VARCHAR(255)" >
-            	<constraints nullable="false"/>
+                <constraints nullable="false"/>
             </column>
             <column name="lastname"  type="VARCHAR(255)" >
-            	<constraints nullable="false"/>
+                <constraints nullable="false"/>
             </column>
         </createTable>
 
         <createTable tableName="books">
             <column name="id"       type="long" startWith="0" autoIncrement="true" >
-            	<constraints primaryKey="true" nullable="false" unique="true"/>
+                <constraints primaryKey="true" nullable="false" unique="true"/>
             </column>
             <column name="name"     type="VARCHAR(255)">
-            	<constraints nullable="false"/>
+                <constraints nullable="false"/>
             </column>
             <column name="created"  type="int">
-            	<constraints nullable="true"/>
+                <constraints nullable="true"/>
             </column>
             <column name="genre_id" type="long">
-            	<constraints foreignKeyName="fk_books_genres" nullable="false"/>
+                <constraints foreignKeyName="fk_books_genres" nullable="false"/>
             </column>
             <column name="author_id" type="long">
                 <constraints foreignKeyName="fk_books_authors" nullable="false"/>
             </column>
         </createTable>
-        
-       <addForeignKeyConstraint baseColumnNames="genre_id"
-            baseTableName="books"
-            constraintName="fk_books_genres"
-            referencedColumnNames="id"
-            referencedTableName="genres"
-            onDelete="CASCADE"
-       />
- 
+
+        <addForeignKeyConstraint baseColumnNames="genre_id"
+                                 baseTableName="books"
+                                 constraintName="fk_books_genres"
+                                 referencedColumnNames="id"
+                                 referencedTableName="genres"/>
+
         <addForeignKeyConstraint baseColumnNames="author_id"
-            baseTableName="books"
-            constraintName="fk_books_authors"
-            referencedColumnNames="id"
-            referencedTableName="authors"
-            onDelete="CASCADE"
+                                 baseTableName="books"
+                                 constraintName="fk_books_authors"
+                                 referencedColumnNames="id"
+                                 referencedTableName="authors"/>
 
-        />
+    </changeSet>
 
- </changeSet>
+    <changeSet author="Misha" id="2">
+        <insert tableName="genres">
+            <column name="id" value="1"/>
+            <column name="name" value="роман"/>
+        </insert>
+        <insert tableName="genres">
+            <column name="id" value="2"/>
+            <column name="name" value="научная фантастика"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="Misha" id="3">
+        <insert tableName="authors">
+            <column name="id" value="1"/>
+            <column name="firstname" value="Братья"/>
+            <column name="lastname" value="Стругацкие"/>
+        </insert>
+        <insert tableName="authors">
+            <column name="id" value="2"/>
+            <column name="firstname" value="Оскар"/>
+            <column name="lastname" value="Уайлд"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="Misha" id="4">
+        <insert tableName="books">
+            <column name="id" value="1"/>
+            <column name="name" value="Понедельник начинается в субботу"/>
+            <column name="created" value="1965"/>
+            <column name="genre_id" value="2"/>
+            <column name="author_id" value="1"/>
+
+        </insert>
+        <insert tableName="books">
+            <column name="id" value="2"/>
+            <column name="name" value="Портрет Дориана Грея"/>
+            <column name="created" value="1890"/>
+            <column name="genre_id" value="1"/>
+            <column name="author_id" value="2"/>
+        </insert>
+
+    </changeSet>
 
 </databaseChangeLog>

@@ -27,7 +27,8 @@ apply plugin: 'org.liquibase.gradle'
 
 group = 'com.m2n.bookshelf'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+sourceCompatibility = 9
+
 
 repositories {
 	mavenCentral()
@@ -102,7 +103,6 @@ task setDbDev {
 
 
 test {
-	dependsOn setDbDev
 	useJUnit()
 }
 

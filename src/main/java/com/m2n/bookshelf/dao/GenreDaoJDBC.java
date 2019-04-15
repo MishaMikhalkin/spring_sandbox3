@@ -3,9 +3,9 @@ package com.m2n.bookshelf.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.RowMapper;
@@ -17,6 +17,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+
 
 @Repository
 public class GenreDaoJDBC implements GenreDao {
@@ -36,25 +37,23 @@ public class GenreDaoJDBC implements GenreDao {
 
 	@Override
 	public Genre insert(Genre genre) {
-
-		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("name", genre.getName());
+		Map<String, String> paramMap = Map.of("name", genre.getName());
 		SqlParameterSource params = new MapSqlParameterSource(paramMap);
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 
-		int id = namedParameterJdbcOperations.update ("insert into genres (name) values (:name)",
-				params, keyHolder,new String[]{"id"});
+		namedParameterJdbcOperations.update ("insert into genres (name) values (:name)", params,
+				keyHolder,new String[]{"id"});
 
-		return new Genre(id, genre.getName());
+		return new Genre(keyHolder.getKey().intValue(), genre.getName());
 	}
 
 
 
 	@Override
 	public Genre getById(int id) {
-        Map<String, Object> params = Collections.singletonMap("id", id);
+        Map<String, Integer> params = Collections.singletonMap("id", id);
         return namedParameterJdbcOperations.queryForObject(
-                "select * from genres where id = :id", params, new GenreMapper()
+                "select id, `name` from genres where id = :id", params, new GenreMapper()
         );
 		
 	}
