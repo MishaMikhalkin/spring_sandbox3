@@ -1,0 +1,69 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 
+   http://www.liquibase.org/xml/ns/dbchangelog 
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="Misha" id="1">
+        <createTable tableName="genres">
+            <column name="id"   type="long" startWith="0" autoIncrement="true"  >
+            	<constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)" >
+            	<constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="authors">
+            <column name="id"        type="long" startWith="0" autoIncrement="true" >
+            	<constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="firstname" type="VARCHAR(255)" >
+            	<constraints nullable="false"/>
+            </column>
+            <column name="lastname"  type="VARCHAR(255)" >
+            	<constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="books">
+            <column name="id"       type="long" startWith="0" autoIncrement="true" >
+            	<constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="name"     type="VARCHAR(255)">
+            	<constraints nullable="false"/>
+            </column>
+            <column name="created"  type="int">
+            	<constraints nullable="true"/>
+            </column>
+            <column name="genre_id" type="long">
+            	<constraints foreignKeyName="fk_books_genres" nullable="false"/>
+            </column>
+            <column name="author_id" type="long">
+                <constraints foreignKeyName="fk_books_authors" nullable="false"/>
+            </column>
+        </createTable>
+        
+       <addForeignKeyConstraint baseColumnNames="genre_id"
+            baseTableName="books"
+            constraintName="fk_books_genres"
+            referencedColumnNames="id"
+            referencedTableName="genres"
+            onDelete="CASCADE"
+       />
+ 
+        <addForeignKeyConstraint baseColumnNames="author_id"
+            baseTableName="books"
+            constraintName="fk_books_authors"
+            referencedColumnNames="id"
+            referencedTableName="authors"
+            onDelete="CASCADE"
+
+        />
+
+ </changeSet>
+
+</databaseChangeLog>
