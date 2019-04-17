@@ -13,7 +13,7 @@
                 <constraints primaryKey="true" nullable="false" unique="true"/>
             </column>
             <column name="name" type="VARCHAR(255)" >
-                <constraints nullable="false"/>
+                <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>
         </createTable>
 
@@ -21,11 +21,8 @@
             <column name="id"        type="long" startWith="0" autoIncrement="true" >
                 <constraints primaryKey="true" nullable="false" unique="true"/>
             </column>
-            <column name="firstname" type="VARCHAR(255)" >
-                <constraints nullable="false"/>
-            </column>
-            <column name="lastname"  type="VARCHAR(255)" >
-                <constraints nullable="false"/>
+            <column name="name" type="VARCHAR(255)" >
+                <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>
         </createTable>
 
@@ -47,18 +44,6 @@
             </column>
         </createTable>
 
-        <addForeignKeyConstraint baseColumnNames="genre_id"
-                                 baseTableName="books"
-                                 constraintName="fk_books_genres"
-                                 referencedColumnNames="id"
-                                 referencedTableName="genres"/>
-
-        <addForeignKeyConstraint baseColumnNames="author_id"
-                                 baseTableName="books"
-                                 constraintName="fk_books_authors"
-                                 referencedColumnNames="id"
-                                 referencedTableName="authors"/>
-
     </changeSet>
 
     <changeSet author="Misha" id="2">
@@ -75,13 +60,11 @@
     <changeSet author="Misha" id="3">
         <insert tableName="authors">
             <column name="id" value="1"/>
-            <column name="firstname" value="Братья"/>
-            <column name="lastname" value="Стругацкие"/>
+            <column name="name" value="Братья Стругацкие"/>
         </insert>
         <insert tableName="authors">
             <column name="id" value="2"/>
-            <column name="firstname" value="Оскар"/>
-            <column name="lastname" value="Уайлд"/>
+            <column name="name" value="Оскар Уайлд" />
         </insert>
     </changeSet>
 
@@ -92,7 +75,6 @@
             <column name="created" value="1965"/>
             <column name="genre_id" value="2"/>
             <column name="author_id" value="1"/>
-
         </insert>
         <insert tableName="books">
             <column name="id" value="2"/>
@@ -101,7 +83,6 @@
             <column name="genre_id" value="1"/>
             <column name="author_id" value="2"/>
         </insert>
-
     </changeSet>
 
 </databaseChangeLog>

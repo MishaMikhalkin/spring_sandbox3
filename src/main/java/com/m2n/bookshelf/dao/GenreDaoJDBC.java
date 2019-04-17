@@ -18,7 +18,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-
 @Repository
 public class GenreDaoJDBC implements GenreDao {
 
@@ -55,7 +54,14 @@ public class GenreDaoJDBC implements GenreDao {
         return namedParameterJdbcOperations.queryForObject(
                 "select id, `name` from genres where id = :id", params, new GenreMapper()
         );
-		
+	}
+
+	@Override
+	public Genre getByName(String name) {
+		Map<String, String> params = Collections.singletonMap("name", name);
+		return namedParameterJdbcOperations.queryForObject(
+				"select id, `name` from genres where name = :name", params, new GenreMapper()
+		);
 	}
 
 	@Override

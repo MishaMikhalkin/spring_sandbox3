@@ -12,7 +12,9 @@ public interface GenreDao {
     Genre insert(Genre genre);
 
     Genre getById(int id);
-    
+
+    Genre getByName(String name);
+
     List<Genre> getAll();
 
     void deleteById(int id);

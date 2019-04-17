@@ -1,8 +1,9 @@
-package com.m2n.bookshelf.domain;
+package com.m2n.bookshelf.dao;
 
 
 import com.m2n.bookshelf.Lab52Application;
 import com.m2n.bookshelf.dao.GenreDaoJDBC;
+import com.m2n.bookshelf.domain.Genre;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {Lab52Application.class})
 @ActiveProfiles("test")
-public class GenreTest {
+public class GenreDaoJDBCTest {
     @Autowired
     public DataSource dataSource;
 
@@ -28,7 +29,7 @@ public class GenreTest {
     private GenreDaoJDBC em;
 
     @Test
-    public void testCountAndInsertGenre() {
+    public void testCountAndInsert() {
         Genre genre = new Genre(0, "0");
         Genre fromDb = em.insert(genre);
         assertThat(fromDb.getId()).isNotZero();
@@ -36,7 +37,7 @@ public class GenreTest {
     }
 
     @Test
-    public void testDeleteGenre() {
+    public void testDelete() {
         int numGenresBeforeOperation = em.count();
         Genre forDelete = em.insert(new Genre(0, "forDelete"));
         em.deleteById(forDelete.getId());

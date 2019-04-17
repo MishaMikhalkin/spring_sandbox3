@@ -9,6 +9,6 @@ public class Book {
 	private final String name;
 	private final int yearOfCreated;
 	private final String genre;
-	private final Book author;
+	private final String authorName;
 
 }
