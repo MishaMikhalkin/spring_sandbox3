@@ -7,8 +7,6 @@ import com.m2n.bookshelf.domain.Genre;
 
 public interface GenreDao {
 
-    int count();
-
     Genre insert(Genre genre);
 
     Genre getById(int id);
@@ -17,5 +15,5 @@ public interface GenreDao {
 
     List<Genre> getAll();
 
-    void deleteById(int id);
+    void delete(Genre genre);
 }

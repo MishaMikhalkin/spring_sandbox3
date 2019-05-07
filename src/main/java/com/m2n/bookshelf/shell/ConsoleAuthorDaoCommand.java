@@ -31,19 +31,21 @@ public class ConsoleAuthorDaoCommand {
     public String getAllAuthors() {
     	List<Author> authors = authorDao.getAll();
     	StringBuilder result = new StringBuilder(consoleUtil.printTwoHeaderName());
-    	authors.stream().forEach(g -> result.append(consoleUtil.printShellObject(g)));
+    	authors.forEach(g -> result.append(consoleUtil.printShellObject(g)));
         return result.toString();
     }
 
     @ShellMethod("count all authors")
     public String countAllAuthors() {
-        return "Number of genres: " + authorDao.count();
+        return "Number of genres: " + authorDao.getAll().size();
     }
 
 
     @ShellMethod("insert author")
     public String createAuthor(String name) {
-        return consoleUtil.printShellObject(authorDao.insert(new Author(0, name)), true);
+        authorDao.insert(new Author(name));
+        Author author = authorDao.getByName(name);
+        return consoleUtil.printShellObject(author, true);
     }
 
     @ShellMethod("get author by id")
@@ -58,6 +60,7 @@ public class ConsoleAuthorDaoCommand {
     
     @ShellMethod("delete author")
     public void deleteAuthor(int id) {
-        authorDao.deleteById(id);
+        Author author = authorDao.getById(id);
+        authorDao.delete(author);
     }
 }

@@ -1,7 +1,9 @@
 package com.m2n.bookshelf.shell;
 
 import com.m2n.bookshelf.dao.BookDao;
+import com.m2n.bookshelf.domain.Author;
 import com.m2n.bookshelf.domain.Book;
+import com.m2n.bookshelf.domain.Genre;
 import com.m2n.bookshelf.util.ConsoleUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,19 +33,20 @@ public class ConsoleBookDaoCommand {
     public String getAllBooks() {
     	List<Book> books = bookDao.getAll();
     	StringBuilder result = new StringBuilder(consoleUtil.printFiveHeaderName());
-    	books.stream().forEach(g -> result.append(consoleUtil.printShellObject(g)));
+    	books.forEach(g -> result.append(consoleUtil.printShellObject(g)));
         return result.toString();
     }
 
     @ShellMethod("count all books")
     public String countAllBooks() {
-        return "Number of genres: " + bookDao.count();
+        return "Number of genres: " + bookDao.getAll().size();
     }
 
 
     @ShellMethod("insert book")
     public String createBook(String name, int year, String genre, String authorname) {
-        return consoleUtil.printShellObject(bookDao.insert(new Book(0, name, year, genre,authorname)), true);
+        return consoleUtil.printShellObject(bookDao.insert(
+                new Book(name, year, new Genre(genre), new Author(authorname))), true);
     }
 
     @ShellMethod("get book")
@@ -53,7 +56,7 @@ public class ConsoleBookDaoCommand {
 
     
     @ShellMethod("delete book")
-    public void deleteBook(int id) {
-        bookDao.deleteById(id);
+    public void deleteBook(Book book) {
+        bookDao.delete(book);
     }
 }

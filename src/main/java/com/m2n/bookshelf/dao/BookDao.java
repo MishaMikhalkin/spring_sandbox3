@@ -5,13 +5,13 @@ import com.m2n.bookshelf.domain.Book;
 import java.util.List;
 
 public interface BookDao {
-        int count();
-
         Book insert(Book book);
 
         Book getById(int id);
 
+        Book getByName(String name);
+
         List<Book> getAll();
 
-        void deleteById(int id);
+        void delete(Book book);
 }

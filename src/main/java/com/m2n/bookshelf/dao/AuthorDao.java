@@ -5,8 +5,6 @@ import com.m2n.bookshelf.domain.Author;
 import java.util.List;
 
 public interface AuthorDao {
-    int count();
-
     Author insert(Author book);
 
     Author getById(int id);
@@ -15,5 +13,5 @@ public interface AuthorDao {
 
     List<Author> getAll();
 
-    void deleteById(int id);
+    void delete(Author author);
 }

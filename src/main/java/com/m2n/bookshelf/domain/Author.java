@@ -1,11 +1,31 @@
 package com.m2n.bookshelf.domain;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
+@Table(name = "AUTHORS")
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode(exclude = {"id", "books"})
 public class Author {
 
-	private final int id;
-	private final String name;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
+	@ToString.Include
+	private String name;
+
+	public Author(String name) {
+		this.name = name;
+	}
+
+	@OneToMany(mappedBy = "id")
+	@ToString.Exclude
+	private Set<Book> books;
 }
+

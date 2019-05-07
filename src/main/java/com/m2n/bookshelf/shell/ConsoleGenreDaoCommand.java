@@ -33,19 +33,20 @@ public class ConsoleGenreDaoCommand {
     public String getAllGenres() {
     	List<Genre> genres = genreDao.getAll();
     	StringBuilder result = new StringBuilder(consoleUtil.printTwoHeaderName());
-    	genres.stream().forEach( g -> result.append(consoleUtil.printShellObject(g)));
+    	genres.forEach(g -> result.append(consoleUtil.printShellObject(g)));
         return result.toString();
     }
 
     @ShellMethod("count all genres")
     public String countAllGenres() {
-        return "Number of genres: " + genreDao.count();
+        return "Number of genres: " + genreDao.getAll().size();
     }
 
 
     @ShellMethod("insert genre")
     public String createGenre(String name) {
-        return consoleUtil.printShellObject(genreDao.insert(new Genre(0, name)), true);
+        genreDao.insert(new Genre(name));
+        return consoleUtil.printShellObject(genreDao.getByName(name), true);
     }
 
     @ShellMethod("get genre by id")
@@ -60,6 +61,6 @@ public class ConsoleGenreDaoCommand {
 
     @ShellMethod("delete genre")
     public void deleteGenre(int id) {
-        genreDao.deleteById(id);
+        genreDao.delete(genreDao.getById(id));
     }
 }

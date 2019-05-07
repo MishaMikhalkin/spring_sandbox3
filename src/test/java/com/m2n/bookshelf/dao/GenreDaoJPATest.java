@@ -1,55 +1,50 @@
 package com.m2n.bookshelf.dao;
 
-import com.m2n.bookshelf.Lab52Application;
-import com.m2n.bookshelf.domain.Author;
+
 import com.m2n.bookshelf.domain.Genre;
+import liquibase.database.core.H2Database;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import javax.sql.DataSource;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
-@Import(AuthorDaoJPA.class)
+@Import(GenreDaoJPA.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
-class AuthorDaoJDBCTest {
+public class GenreDaoJPATest {
 
     @Autowired
-    private AuthorDaoJPA em;
-
+    private GenreDaoJPA em;
 
     @Test
-    void insert() {
-        Author author = new Author( "1");
-        Author fromDb = em.insert(author);
-        assertThat(fromDb.getId()).isNotZero();
-        assertThat(fromDb.getName()).isEqualTo(author.getName());
+    public void testCountAndInsert() {
+        Genre genre = new Genre("0");
+        Genre fromDB = em.insert(genre);
+        assertThat(fromDB.getId()).isNotZero();
+        assertThat(fromDB.getName()).isEqualTo(genre.getName());
     }
 
     @Test
     public void testDelete() {
-        int numBeforOperation = em.getAll().size();
-        Author forDelete = em.insert(new Author("forDelete"));
+        int numGenresBeforeOperation = em.getAll().size();
+        Genre forDelete = em.insert(new Genre("forDelete"));
         em.delete(forDelete);
-        assertThat(em.getAll().size()).isEqualTo(numBeforOperation);
+        assertThat(em.getAll().size()).isEqualTo(numGenresBeforeOperation);
     }
 
     @Test
     public void findById() {
-        Author author = em.getById(1);
-        assertThat(author.getId()).isEqualTo(1);
-        assertThat(author.getName()).isEqualTo("Братья Стругацкие");
+        Genre genre = em.getById(1);
+        assertThat(genre.getId()).isEqualTo(1);
+        assertThat(genre.getName()).isEqualTo("роман");
     }
 }

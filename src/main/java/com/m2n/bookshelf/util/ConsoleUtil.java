@@ -46,7 +46,7 @@ public class ConsoleUtil {
 
     public String printShellObject(Book book) {
         return String.format(FIVE_COLUMN_FORMAT,
-                book.getId(), book.getName(), book.getYearOfCreated(), book.getGenre(), book.getAuthorName());
+                book.getId(), book.getName(), book.getYearOfCreated(), book.getGenre().getName(), book.getAuthorName().getName());
     }
 
     public String printShellObject(Book book, boolean printHeader) {

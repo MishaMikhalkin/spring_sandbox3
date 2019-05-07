@@ -5,9 +5,7 @@ spring:
     password:
     driver-class-name: org.h2.Driver
     platform: h2
- 
-  # enable H2 web console and set url for web console
-  # http://localhost:8080/console
+
   h2:
     console:
       enabled: true
@@ -37,3 +35,9 @@ spring:
 
   liquibase:
     change-log: classpath:/database/test.xml
+
+  jpa:
+    generate-dll: false
+    hibernate:
+      dll-auto: false
+    show-sql: true

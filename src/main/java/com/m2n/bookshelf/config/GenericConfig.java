@@ -47,14 +47,14 @@ public class GenericConfig {
                 .build();
     }
 
-    @Bean
-    public SpringLiquibase springLiquibase(DataSource dataSource) throws SQLException {
-        SpringLiquibase liquibase = new SpringLiquibase();
-        // we want to drop the datasbe if it was created before to have immutable version
-        liquibase.setDataSource(dataSource);
-        // the classpath reference for your liquibase changlog
-        liquibase.setChangeLog(changeLog);
-        return liquibase;
-    }
+//    @Bean
+//    public SpringLiquibase springLiquibase(DataSource dataSource) throws SQLException {
+//        SpringLiquibase liquibase = new SpringLiquibase();
+//        // we want to drop the datasbe if it was created before to have immutable version
+//        liquibase.setDataSource(dataSource);
+//        // the classpath reference for your liquibase changlog
+//        liquibase.setChangeLog(changeLog);
+//        return liquibase;
+//    }
     
 }
