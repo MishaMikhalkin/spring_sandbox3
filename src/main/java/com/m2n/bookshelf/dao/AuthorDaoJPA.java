@@ -44,4 +44,10 @@ public class AuthorDaoJPA implements AuthorDao {
     public void delete(Author author) {
         entityManager.remove(author);
     }
+
+    @Override
+    public long count() {
+        TypedQuery<Long> query = entityManager.createQuery("select count(a) from Author a", Long.class);
+        return query.getSingleResult();
+    }
 }

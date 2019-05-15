@@ -14,4 +14,6 @@ public interface BookDao {
         List<Book> getAll();
 
         void delete(Book book);
+
+        long count();
 }

@@ -37,7 +37,7 @@ public class ConsoleAuthorDaoCommand {
 
     @ShellMethod("count all authors")
     public String countAllAuthors() {
-        return "Number of genres: " + authorDao.getAll().size();
+        return "Number of genres: " + authorDao.count();
     }
 
 

@@ -39,7 +39,7 @@ public class ConsoleGenreDaoCommand {
 
     @ShellMethod("count all genres")
     public String countAllGenres() {
-        return "Number of genres: " + genreDao.getAll().size();
+        return "Number of genres: " + genreDao.count();
     }
 
 

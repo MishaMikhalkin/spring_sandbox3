@@ -16,4 +16,6 @@ public interface GenreDao {
     List<Genre> getAll();
 
     void delete(Genre genre);
+
+    long count();
 }

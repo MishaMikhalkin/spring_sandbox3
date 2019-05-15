@@ -30,14 +30,12 @@ public class BookDaoJPA implements BookDao {
         genre = genreManager.find(Genre.class, genre.getId());
         if (genre == null) {
             genreManager.persist(genre);
-            genreManager.flush();
         }
 
         Author author = book.getAuthorName();
         author = genreManager.find(Author.class, author.getId());
         if (author == null) {
             genreManager.persist(author);
-            genreManager.flush();
         }
 
         entityManager.persist(book);
@@ -67,4 +65,11 @@ public class BookDaoJPA implements BookDao {
     public void delete(Book book) {
         entityManager.remove(book);
     }
+
+    @Override
+    public long count() {
+        TypedQuery<Long> query = entityManager.createQuery("select count(a) from Book a", Long.class);
+        return query.getSingleResult();
+    }
+
 }

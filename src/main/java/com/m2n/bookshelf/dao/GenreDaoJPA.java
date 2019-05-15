@@ -45,4 +45,10 @@ public class GenreDaoJPA implements GenreDao {
     public void delete(Genre genre) {
         entityManager.remove(genre);
     }
+
+    @Override
+    public long count() {
+        TypedQuery<Long> query = entityManager.createQuery("select count(a) from Genre a", Long.class);
+        return query.getSingleResult();
+    }
 }
