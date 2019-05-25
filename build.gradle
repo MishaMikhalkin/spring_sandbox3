@@ -49,36 +49,37 @@ dependencies {
 
 	runtimeOnly('com.h2database:h2')
 	implementation('com.h2database:h2')
-	testImplementation('org.springframework.boot:spring-boot-starter-test')
-	
+
 	liquibaseRuntime 'org.liquibase:liquibase-core:3.6.1'
-   	liquibaseRuntime 'com.h2database:h2'
-   	
-   	compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
-    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
+	liquibaseRuntime 'com.h2database:h2'
+
+	compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
+	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
 	compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
-	testCompile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
 
 
 	compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.2.Final'
 	compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.4.2.Final'
-	testCompile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.2.Final'
-	testCompile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.4.2.Final'
 
 
 
 	compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
-    testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
-	testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.4.1'
-	testCompile group: 'org.assertj', name: 'assertj-core', version: '3.12.2'
 	compile group: 'com.ninja-squad', name: 'DbSetup', version: '2.1.0'
-	testCompile group: 'org.testcontainers', name: 'testcontainers', version: '1.11.1'
-	testCompile group: 'org.testcontainers', name: 'mysql', version: '1.11.1'
 
 	compile group: 'org.liquibase', name: 'liquibase-core', version: '3.6.3'
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	testImplementation('org.junit.jupiter:junit-jupiter-api:5.4.2')
+	testRuntime('org.junit.jupiter:junit-jupiter-engine:5.4.2')
+	testCompile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+	testCompile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.2.Final'
+	testCompile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.4.2.Final'
+	//testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.4.1'
+	testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+	testCompile group: 'org.assertj', name: 'assertj-core', version: '3.12.2'
 	testCompile group: 'org.liquibase', name: 'liquibase-core', version: '3.6.3'
-
-
+	testCompile group: 'org.testcontainers', name: 'testcontainers', version: '1.11.1'
+	testCompile group: 'org.testcontainers', name: 'mysql', version: '1.11.1'
 
 
 	bootRun {
@@ -118,6 +119,6 @@ task setDbDev {
 
 
 test {
-	useJUnit()
+	useJUnitPlatform()
 }
 

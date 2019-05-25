@@ -2,6 +2,7 @@ package com.m2n.bookshelf.dao;
 
 
 import com.m2n.bookshelf.domain.Genre;
+import com.m2n.bookshelf.repository.GenreRepository;
 import liquibase.database.core.H2Database;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,37 +14,39 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
+import javax.persistence.EntityNotFoundException;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
-@ActiveProfiles("test")
-@Import(GenreDaoJPA.class)
+//@ActiveProfiles("test")
+//@Import(GenreRepository.class)
 @DataJpaTest
-@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
+//@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 public class GenreDaoJPATest {
 
     @Autowired
-    private GenreDaoJPA em;
+    private GenreRepository em;
 
     @Test
     public void testCountAndInsert() {
         Genre genre = new Genre("0");
-        Genre fromDB = em.insert(genre);
+        Genre fromDB = em.save(genre);
         assertThat(fromDB.getId()).isNotZero();
         assertThat(fromDB.getName()).isEqualTo(genre.getName());
     }
 
     @Test
     public void testDelete() {
-        int numGenresBeforeOperation = em.getAll().size();
-        Genre forDelete = em.insert(new Genre("forDelete"));
+        long numGenresBeforeOperation = em.count();
+        Genre forDelete = em.save(new Genre("forDelete"));
         em.delete(forDelete);
-        assertThat(em.getAll().size()).isEqualTo(numGenresBeforeOperation);
+        assertThat(em.count()).isEqualTo(numGenresBeforeOperation);
     }
 
     @Test
     public void findById() {
-        Genre genre = em.getById(1);
+        Genre genre = em.findById(1).orElseThrow(() -> new EntityNotFoundException(""));
         assertThat(genre.getId()).isEqualTo(1);
         assertThat(genre.getName()).isEqualTo("роман");
     }
