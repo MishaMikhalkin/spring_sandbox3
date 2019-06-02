@@ -1,31 +1,26 @@
 package com.m2n.bookshelf.domain;
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.util.Set;
 
-@Entity
-@Table(name = "AUTHORS")
-@Getter
-@Setter
+@Document(collection = "authors")
+@Data
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"id", "books"})
 public class Author {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private String id;
 
-	@ToString.Include
 	private String name;
 
-	public Author(String name) {
+	public 	Author(String id, String name) {
+		this.id = id;
 		this.name = name;
 	}
 
-	@OneToMany(mappedBy = "id")
-	@ToString.Exclude
 	private Set<Book> books;
 }
 

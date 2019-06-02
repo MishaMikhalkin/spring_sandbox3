@@ -1,43 +1,6 @@
 spring:
-  datasource:
-    url: jdbc:h2:~/bookshelf;
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
-    platform: h2
+  mongo:
+    host: 127.0.0.1
+    port: 27017
+    databaseName: "bookshelf"
 
-  h2:
-    console:
-      enabled: true
-      path: /h2
-      
-  liquibase:
-    change-log: classpath:/database/master.xml
----
-spring:
-  profiles: test
-
-  shell:
-    interactive:
-          enabled: false
-
-  datasource:
-    url: jdbc:h2:mem:~/test;
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
-    platform: h2
-
-  h2:
-    console:
-      enabled: true
-      path: /h2
-
-  liquibase:
-    change-log: classpath:/database/test.xml
-
-  jpa:
-    generate-dll: false
-    hibernate:
-      dll-auto: false
-    show-sql: true

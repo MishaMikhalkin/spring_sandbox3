@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @ShellComponent
 public class ConsoleAuthorDaoCommand {
@@ -44,25 +45,25 @@ public class ConsoleAuthorDaoCommand {
 
     @ShellMethod("insert author")
     public String createAuthor(String name) {
-        return consoleUtil.printShellObject(authorDao.save(new Author(name)), true);
+        return consoleUtil.printShellObject(authorDao.save(new Author(UUID.randomUUID().toString(), name)), true);
     }
 
     @ShellMethod("get author by id")
-    public String getAuthorById(int id) {
+    public String getAuthorById(String id) {
         return consoleUtil.printShellObject(authorDao.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Could not find entity author with name:" + id)) , true);
+                .orElseThrow(() -> new NoSuchElementException("Could not find entity author with name:" + id)) , true);
     }
     
     @ShellMethod("get author by name")
     public String getAuthorByName(String name) {
         return consoleUtil.printShellObject(authorDao.findByName(name)
-                .orElseThrow(() -> new EntityNotFoundException("Could not find entity author with name:" + name)), true);
+                .orElseThrow(() -> new NoSuchElementException("Could not find entity author with name:" + name)), true);
     }
     
     @ShellMethod("delete author")
-    public void deleteAuthor(int id) {
+    public void deleteAuthor(String id) {
         Author author = authorDao.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Could not find entity author with name:" + id));
+                .orElseThrow(() -> new NoSuchElementException("Could not find entity author with name:" + id));
         authorDao.delete(author);
     }
 }
