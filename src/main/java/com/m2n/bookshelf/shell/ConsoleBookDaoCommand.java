@@ -4,9 +4,8 @@ import com.m2n.bookshelf.domain.Author;
 import com.m2n.bookshelf.domain.Book;
 import com.m2n.bookshelf.repository.BookRepository;
 import com.m2n.bookshelf.util.ConsoleUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 
@@ -15,20 +14,12 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @ShellComponent
+@Slf4j
+@RequiredArgsConstructor
 public class ConsoleBookDaoCommand {
-
-    private static final Logger logger = LoggerFactory.getLogger(ConsoleBookDaoCommand.class);
-
 
     private final BookRepository bookDao;
     private final ConsoleUtil consoleUtil;
-
-
-    @Autowired
-    public ConsoleBookDaoCommand(BookRepository bookDao, ConsoleUtil consoleUtil) {
-        this.bookDao = bookDao;
-        this.consoleUtil = consoleUtil;
-    }
 
     @ShellMethod("get All Books")
     public String getAllBooks() {

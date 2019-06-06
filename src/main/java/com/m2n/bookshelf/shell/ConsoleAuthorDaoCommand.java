@@ -3,9 +3,8 @@ package com.m2n.bookshelf.shell;
 import com.m2n.bookshelf.domain.Author;
 import com.m2n.bookshelf.repository.AuthorRepository;
 import com.m2n.bookshelf.util.ConsoleUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 
@@ -14,20 +13,13 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @ShellComponent
+@RequiredArgsConstructor
+@Slf4j
 public class ConsoleAuthorDaoCommand {
-
-    private static final Logger logger = LoggerFactory.getLogger(ConsoleAuthorDaoCommand.class);
-
 
     private final AuthorRepository authorDao;
     private final ConsoleUtil consoleUtil;
 
-
-    @Autowired
-    public ConsoleAuthorDaoCommand(AuthorRepository authorDao, ConsoleUtil consoleUtil) {
-        this.authorDao = authorDao;
-        this.consoleUtil = consoleUtil;
-    }
 
     @ShellMethod("get All Authors")
     public String getAllAuthors() {

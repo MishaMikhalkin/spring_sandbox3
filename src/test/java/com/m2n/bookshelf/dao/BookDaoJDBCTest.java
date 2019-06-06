@@ -5,6 +5,7 @@ import com.m2n.bookshelf.domain.Author;
 import com.m2n.bookshelf.domain.Book;
 import com.m2n.bookshelf.repository.AuthorRepository;
 import com.m2n.bookshelf.repository.BookRepository;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataMongoTest(excludeAutoConfiguration = {MongoTestConfig.class})
 @ExtendWith(SpringExtension.class)
+@DisplayName(value = "Test Book Repository")
 class BookDaoJDBCTest {
 
     @Autowired
@@ -27,6 +29,7 @@ class BookDaoJDBCTest {
     private AuthorRepository authorDaoJPA;
 
     @Test
+    @DisplayName(value = "save, findAll should pass")
     void insert() {
         Author author = authorDaoJPA.save(new Author(UUID.randomUUID().toString(), "Оскар Уайлд"));
         Book book = new Book(UUID.randomUUID().toString(), "Кентервильское привидение" , 1887, "жанр", author);
@@ -48,7 +51,7 @@ class BookDaoJDBCTest {
 
 
     @Test()
-
+    @DisplayName(value = "count, delete, findById should pass")
     public void testDelete() {
 
         Author author = authorDaoJPA.save(new Author(UUID.randomUUID().toString(), "Оскар Уайлд"));
